@@ -1,0 +1,132 @@
+/* Additional custom styles for the app */
+.background-pattern-svg {
+  background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E') repeat;
+}
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Glassmorphism effects */
+.glass-effect {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animated gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+.dark .gradient-bg {
+  background: linear-gradient(-45deg, #0f0f23, #1a1a2e, #16213e, #0f3460);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Form animations */
+.form-container {
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button hover effects */
+.btn-primary:hover {
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 8px 20px rgba(217, 70, 239, 0.3);
+}
+
+/* Loading spinner */
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Result card animations */
+.result-card {
+  animation: fadeInScale 0.6s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive design enhancements */
+@media (max-width: 768px) {
+  .glass-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .lottie-container {
+    max-width: 200px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #000;
+  }
+  
+  .dark .glass-card {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #fff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  @apply bg-[#d0f7ff] text-[#0a0a23];
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.dark body {
+  @apply bg-[#0f172a] text-[#f1f5f9];
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl border rounded-2xl;
+    background: rgba(224, 251, 252, 0.3);
+    border-color: rgba(160, 234, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 224, 255, 0.1), 0 0 20px rgba(0, 224, 255, 0.05);
+  }
+  
+  .dark .glass-card {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: rgba(0, 224, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 224, 255, 0.2), 0 0 20px rgba(0, 224, 255, 0.1);
+  }
+  
+  .gradient-border {
+    @apply relative overflow-hidden rounded-2xl;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(45deg, #00e0ff, #a3ecff, #00d4ff, #48dbfb);
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border transition-all duration-300;
+    background: #ccf3f9;
+    border-color: rgba(160, 234, 255, 0.2);
+    color: #0a0a23;
+  }
+  
+  .input-field::placeholder {
+    color: #3a3a50;
+  }
+  
+  .input-field:focus {
+    @apply outline-none ring-2 border-transparent;
+    ring-color: #00d4ff;
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
+  }
+  
+  .dark .input-field {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: rgba(0, 224, 255, 0.3);
+    color: #f1f5f9;
+  }
+  
+  .dark .input-field::placeholder {
+    color: #94a3b8;
+  }
+  
+  .dark .input-field:focus {
+    ring-color: #00e0ff;
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.4);
+  }
+  
+  .btn-primary {
+    @apply px-8 py-4 font-semibold rounded-xl shadow-lg transform transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    background: #00e0ff;
+    color: #0a0a23;
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
+  }
+  
+  .btn-primary:hover {
+    @apply scale-105;
+    background: #00d4ff;
+    box-shadow: 0 0 25px rgba(0, 224, 255, 0.4);
+  }
+  
+  .btn-primary:focus {
+    ring-color: #00e0ff;
+  }
+  
+  .dark .btn-primary {
+    background: linear-gradient(135deg, #00e0ff, #a3ecff);
+    color: #0a0a23;
+    box-shadow: 0 4px 15px rgba(0, 224, 255, 0.5);
+  }
+  
+  .dark .btn-primary:hover {
+    background: linear-gradient(135deg, #00d4ff, #48dbfb);
+    box-shadow: 0 6px 20px rgba(0, 224, 255, 0.6);
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 font-medium rounded-xl shadow-md transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    background: linear-gradient(135deg, #48dbfb, #00e0ff);
+    color: #0a0a23;
+  }
+}
+
+.lottie-container {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.result-success {
+  @apply text-white;
+  background: linear-gradient(135deg, #22c55e, #48dbfb);
+}
+
+.result-danger {
+  @apply text-white;
+  background: linear-gradient(135deg, #ef4444, #00e0ff);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 224, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 224, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 224, 255, 0.5);
+}
