@@ -1,13 +1,21 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
-# Base directory
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = backend/diabetes/../.. → project/
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# SECURITY WARNING: keep the secret key secret in production!
-SECRET_KEY = 'django-insecure-dwp9*5k=&7i*3g!guu_tpg$vfl7qtlo3a61#f^(4oqntbgn8c('
+# Load .env from project root
+load_dotenv(BASE_DIR / ".env")
 
-DEBUG = True
-ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret')
+
+# DEBUG mode: should be False in production
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# Allowed Hosts: comma-separated in .env
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -17,14 +25,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
     'corsheaders',
-    'core',  # your app
+    'core',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # must be first!
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,7 +62,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'diabetes.wsgi.application'
 
-# SQLite database
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -76,29 +84,24 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-STATIC_URL = 'static/'
+# Static files (important for Render)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS Settings
-CORS_ALLOW_ALL_ORIGINS = True  # for development only
+# CORS settings
+CORS_ALLOW_ALL_ORIGINS = DEBUG  # Allow all origins in development only
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    os.getenv('FRONTEND_URL', '')  # your Vercel or Netlify URL
 ]
 
-# REST Framework - Allow public access (no auth)
+# REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
 }
-import os
-
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-
-SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret')
