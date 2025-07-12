@@ -1,27 +1,45 @@
-# Logs
-logs
+# ======================
+# 🚀 GENERAL
+# ======================
+.DS_Store
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+*.pot
+*.pyc
+*.pyo
+*.swp
+*.swo
 
-node_modules
-dist
-dist-ssr
+# ======================
+# 📦 REACT (Vite)
+# ======================
+node_modules/
+dist/
+dist-ssr/
+.vite/
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# ======================
+# 🐍 PYTHON / DJANGO
+# ======================
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+*.egg-info/
+backend/venv/
+.env
+.env.*
+
+# ======================
+# 💻 IDE / OS FILES
+# ======================
+.vscode/
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
-# Ignore environment variables
-.env
-backend/venv/
+Thumbs.db
+
+# Keep VSCode recommendations
+!.vscode/extensions.json
