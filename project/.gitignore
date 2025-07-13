@@ -73,3 +73,7 @@ yarn-error.log
 # --- Optional: ignore all secrets and keys ---
 secrets.json
 credentials.json
+
+__pycache__/
+*.pyc
+db.sqlite3

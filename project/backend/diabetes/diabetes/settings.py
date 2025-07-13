@@ -6,7 +6,12 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-_d(wpar$^3u0+lb&cfc+vkpr&gaaf8fv)$2+47($+r+uidqsfy')
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Only needed if you're not using Render/Vercel's env vars directly
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
