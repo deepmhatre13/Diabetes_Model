@@ -1,9 +1,0 @@
-{
-  "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "cd project/backend/diabetes && pip install -r requirements.txt"
-  },
-  "start": {
-    "cmd": "cd project/backend/diabetes && gunicorn diabetes.wsgi"
-  }
-}

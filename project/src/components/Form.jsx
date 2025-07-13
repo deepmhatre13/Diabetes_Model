@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ResultCard from './ResultCard';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -32,12 +32,12 @@ const Form = () => {
 
     try {
       const payload = {
-        age: parseInt(formData.age),
-        gender: parseInt(formData.gender),
-        family_history: parseInt(formData.family_history),
-        medication: parseInt(formData.medication),
-        sugar_intake: parseInt(formData.sugar_intake),
-        physical_activity: parseInt(formData.physical_activity)
+        AGE: parseInt(formData.age),
+        GENDER: parseInt(formData.gender),
+        FAMILY_HISTORY: parseInt(formData.family_history),
+        MEDICATION_FOR_SUGAR: parseInt(formData.medication),
+        SUGARY_FOOD_INTAKE: parseInt(formData.sugar_intake),
+        PHYSICAL_ACTIVITY: parseInt(formData.physical_activity)
       };
 
       const response = await fetch(`${API_BASE_URL}/predict/`, {
@@ -49,6 +49,8 @@ const Form = () => {
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Backend error response:', errorText);
         throw new Error('Failed to get prediction');
       }
 
@@ -56,7 +58,7 @@ const Form = () => {
       setResult(data);
     } catch (err) {
       setError(err.message);
-      // For demo purposes, set a mock result
+      // For demo fallback
       setResult({ prediction: Math.random() > 0.5 ? 1 : 0 });
     } finally {
       setLoading(false);
@@ -81,43 +83,15 @@ const Form = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Age */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">
-                  Age
-                </label>
-                <input
-                  type="number"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleChange}
-                  className="input-field"
-                  placeholder="Enter your age"
-                  min="1"
-                  max="120"
-                  required
-                />
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
+                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">Age</label>
+                <input type="number" name="age" value={formData.age} onChange={handleChange} className="input-field" placeholder="Enter your age" min="1" max="120" required />
               </motion.div>
 
               {/* Gender */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">
-                  Gender
-                </label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                >
+              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">Gender</label>
+                <select name="gender" value={formData.gender} onChange={handleChange} className="input-field" required>
                   <option value="">Select Gender</option>
                   <option value="0">Female</option>
                   <option value="1">Male</option>
@@ -125,21 +99,9 @@ const Form = () => {
               </motion.div>
 
               {/* Family History */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">
-                  Family History of Diabetes
-                </label>
-                <select
-                  name="family_history"
-                  value={formData.family_history}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                >
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">Family History of Diabetes</label>
+                <select name="family_history" value={formData.family_history} onChange={handleChange} className="input-field" required>
                   <option value="">Select Option</option>
                   <option value="0">No</option>
                   <option value="1">Yes</option>
@@ -147,21 +109,9 @@ const Form = () => {
               </motion.div>
 
               {/* Medication */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">
-                  Currently Taking Medication
-                </label>
-                <select
-                  name="medication"
-                  value={formData.medication}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                >
+              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">Currently Taking Medication</label>
+                <select name="medication" value={formData.medication} onChange={handleChange} className="input-field" required>
                   <option value="">Select Option</option>
                   <option value="0">No</option>
                   <option value="1">Yes</option>
@@ -169,21 +119,9 @@ const Form = () => {
               </motion.div>
 
               {/* Sugar Intake */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">
-                  Sugar Intake Level
-                </label>
-                <select
-                  name="sugar_intake"
-                  value={formData.sugar_intake}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                >
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
+                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">Sugar Intake Level</label>
+                <select name="sugar_intake" value={formData.sugar_intake} onChange={handleChange} className="input-field" required>
                   <option value="">Select Level</option>
                   <option value="1">Low</option>
                   <option value="2">Medium</option>
@@ -192,21 +130,9 @@ const Form = () => {
               </motion.div>
 
               {/* Physical Activity */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">
-                  Physical Activity Level (1-5)
-                </label>
-                <select
-                  name="physical_activity"
-                  value={formData.physical_activity}
-                  onChange={handleChange}
-                  className="input-field"
-                  required
-                >
+              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
+                <label className="block text-sm font-medium text-[#0a0a23] dark:text-[#f1f5f9] mb-2">Physical Activity Level (1-5)</label>
+                <select name="physical_activity" value={formData.physical_activity} onChange={handleChange} className="input-field" required>
                   <option value="">Select Level</option>
                   <option value="1">Very Low</option>
                   <option value="2">Low</option>
@@ -218,12 +144,7 @@ const Form = () => {
             </div>
 
             {/* Submit Button */}
-            <motion.div 
-              className="flex justify-center pt-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
+            <motion.div className="flex justify-center pt-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
               <motion.button
                 type="submit"
                 disabled={!isFormValid || loading}
